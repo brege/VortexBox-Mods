@@ -13,7 +13,7 @@
 #
 # Changelog
 #
-# Wed Jun 15 2011 Ron Olsen <wyatt.brege@gmail.com>
+# Wed May 07 2012 Wyatt Brege <wyatt.brege@gmail.com>
 # * Add $flacdir and $oggdir arguments to call to flac2ogg.sh
 # * Add CloseTray action
 #

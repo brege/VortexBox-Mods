@@ -16,6 +16,7 @@
 # Wed May 07 2012 Wyatt Brege <wyatt.brege@gmail.com>
 # * Add $flacdir and $oggdir arguments to call to flac2ogg.sh
 # * Add CloseTray action
+# * Add args for deleting Ogg files
 #
 # Thurs Mar 22 2012 Ron Olsen <ronolsen@comcast.net>
 # * Stop ntpd service, not ntpdate service, when resetting System Time or setting Time Zone.
