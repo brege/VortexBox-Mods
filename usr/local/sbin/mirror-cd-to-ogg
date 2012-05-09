@@ -1,0 +1,84 @@
+#!/bin/sh
+##############################################################################
+# Copyright (C) 2008 - 2011 vortexbox.org
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# Name: mirror-cd-to-ogg
+#
+# Usage: mirror-cd-to-ogg flacdir
+#
+# Get coverart for the FLAC album in flacdir, if necessary,
+# then mirror the FLAC files in flacdir to ogg.
+#
+# Author: Wyatt Brege <wyatt.brege@gmail.com>
+# Based on work by Ron Olsen <ronolsen@comcast.net>, "mirror-cd-to-m4a"
+#
+# Date: Fri May 10 2012
+# Version 1.0
+#
+##############################################################################
+
+# Mirror specified FLAC directory to ogg
+
+if [ $# -ne 1 ]
+then
+    echo "Usage: mirror-cd-to-ogg flacdir"
+    exit 1
+fi
+
+if [ ! -d "$1" ]
+then
+    echo "Error: $1 is not a directory"
+    exit 2
+fi
+
+echo "/usr/local/sbin/mirror-cd-to-ogg $1"
+
+flacdir="$1"
+oggdir=`echo $flacdir | sed -e "s;/flac/;/ogg/;" -`
+
+echo "FLAC dir is $flacdir"
+echo "Ogg dir is $oggdir"
+
+# Get cover art for FLAC dir
+
+echo "Getting cover art for $flacdir"
+if [ ! -f "$flacdir/cover.jpg" ]
+then
+    /opt/vortexbox/covergrabber.php "$flacdir"
+fi
+
+if [ -f "$flacdir/cover.jpg" ]
+then
+   echo "copying $flacdir/cover.jpg to $flacdir/folder.jpg"
+   cp -a "$flacdir/cover.jpg" "$flacdir/folder.jpg"
+fi
+
+echo "Mirroring FLAC files in $flacdir to ogg in $oggdir"
+
+if [ ! -d "$oggdir" ]
+then
+    mkdir -p "$oggdir"
+fi
+if [ -f "$flacdir/cover.jpg" ]
+then
+    cp -a "$flacdir/cover.jpg" "$oggdir/cover.jpg"
+    cp -a "$oggdir/cover.jpg" "$oggdir/folder.jpg"
+fi
+
+OGGOPT="`cat /etc/vortexbox/oggopt.txt` -o"
+
+echo "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg in $oggdir started."
+
+/usr/local/sbin/flac2ogg.sh "$flacdir $OGGOPT $oggdir"
+
+echo "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg in $oggdir completed."
