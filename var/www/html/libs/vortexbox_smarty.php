@@ -47,7 +47,7 @@ if (file_exists("/etc/vortexbox/sonos.smb") && file_exists("/opt/sonos/sonos.pl"
 }
 
 if (file_exists("/lib/systemd/system/transmission-daemon.service")) {
-	$icon_array[14] = array('name' => 'Transmission', 'icon' => 'transmission.png', 'link' => 'http://'.$ipaddress.':9091');
+	$icon_array[14] = array('name' => 'Transmission', 'icon' => 'transmission.png', 'link' => 'http://'.$ipaddress.':9091', 'newtab' => '1');
 }
 
 if (file_exists("/opt/twonkymedia")) {
@@ -55,7 +55,7 @@ if (file_exists("/opt/twonkymedia")) {
 }
 
 if (file_exists("/etc/rc.d/init.d/plexmediaserver")) {
-	$icon_array[16] = array('name' => 'Plex Media Server Configuration', 'icon' => 'plex.png', 'link' => 'http://'.$ipaddress.':32400/manage');
+	$icon_array[16] = array('name' => 'Plex Media Server Configuration', 'icon' => 'plex.png', 'link' => 'http://'.$ipaddress.':32400/manage', 'newtab' => '1');
 }
 
 if (file_exists("/opt/MusicMagicMixer/mm.jar")) {
@@ -63,27 +63,27 @@ if (file_exists("/opt/MusicMagicMixer/mm.jar")) {
 }
 
 if (file_exists("/usr/bin/subsonic")) {
-	$icon_array[18] = array('name' => 'Subsonic', 'icon' => 'subsonic.png', 'link' => 'http://'.$ipaddress.':4040');
+	$icon_array[18] = array('name' => 'Subsonic', 'icon' => 'subsonic.png', 'link' => 'http://'.$ipaddress.':4040', 'newtab' => '1');
 }
 
 if (file_exists("/opt/bliss/bin/bliss.sh")) {
-	$icon_array[19] = array('name' => 'Bliss', 'icon' => 'bliss.png', 'link' => 'http://'.$ipaddress.':3220');
+	$icon_array[19] = array('name' => 'Bliss', 'icon' => 'bliss.png', 'link' => 'http://'.$ipaddress.':3220', 'newtab' => '1');
 }
 
 if (file_exists("/usr/bin/vortexbox-player")) {
 	$icon_array[20] = array('name' => 'Configure VortexBox Player', 'icon' => 'vortexbox-player.png', 'link' => '/vortexbox-player.php');
 }	
 
-$icon_array[21] = array('name' => 'VortexBox Upgrade', 'icon' => 'upgrade.png', 'link' => '/upgrade.php');
-
 if (file_exists("/etc/rc.d/init.d/webmin")) {
-	$icon_array[22] = array('name' => 'Webmin', 'icon' => 'webmin.png', 'link' => 'http://'.$ipaddress.':10000', 'newtab' => '1');
+	$icon_array[21] = array('name' => 'Webmin', 'icon' => 'webmin.png', 'link' => 'http://'.$ipaddress.':10000', 'newtab' => '1');
 }	
 
 if (file_exists("/etc/rc.d/init.d/shellinaboxd")) {
-	$icon_array[23] = array('name' => 'Shell in a Box', 'icon' => 'shellinabox.png', 'link' => 'http://'.$ipaddress.':4200', 'newtab' => '1');
+	$icon_array[22] = array('name' => 'Shell in a Box', 'icon' => 'shellinabox.png', 'link' => 'http://'.$ipaddress.':4200', 'newtab' => '1');
 }	
 
-$smarty->assign('IconList',$icon_array);
+$icon_array[23] = array('name' => 'VortexBox Upgrade', 'icon' => 'upgrade.png', 'link' => '/upgrade.php');
+
+$smarty->assign('IconList', $icon_array);
 
 ?>

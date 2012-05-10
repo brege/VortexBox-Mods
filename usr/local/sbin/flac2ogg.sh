@@ -42,7 +42,6 @@ fi
 
 #Were we called correctly?
 if [ -z "$1" -o -z "$3" ]; then
-  echo "Usage: flac2ogg.sh <input-dir>  <compression-level> -o <output-dir>" >&2
   exit 1
 fi
 NOW=`date +'%m/%d/%Y %H:%M:%S'`
@@ -54,14 +53,14 @@ WORK="$TMPDIR/flac2mp3.$$"
 ERR="$WORK/stderr.txt"
 TAGS="$WORK/track.tags"
 
-# Decide encoding compression level
-OGGQUALITY="$2 -o"
-
 # Get absolute directory paths
 INPUTDIR="$1"
 OUTPUTDIR="$3"
 
-#OGGQUALITY="-q8"
+# Decide encoding compression level
+OGGOPT="$2"
+
+#OGGOPT="-q8"
 #INPUTDIR="/storage/music/flac"
 #OUTPUTDIR="/storage/music/ogg"
 
@@ -71,7 +70,7 @@ echolog "Starting FLAC to Ogg Vorbis (.ogg) mirror..."
 echo ""
 echolog "Input Dir: $INPUTDIR"
 echolog "Output Dir: $OUTPUTDIR"
-echolog "Ogg Quality: $OGGQUALITY"
+echolog "Ogg Quality: $OGGOPT"
 echolog "WORK Dir: $WORK"
 echo ""
 
@@ -138,14 +137,14 @@ for filepath in $(find . -type f -name '*.flac' -print \
 		echo "Track#: $TRACKNUMBER"
 		echo "Genre: $GENRE"
 		echo ""
-		echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGQUALITY $OUTPUTDIR/$filepath.ogg"
+		echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg"
 		echo ""
 	
     # Encode Ogg
-    oggenc $INPUTDIR/$filepath.flac $OGGQUALITY $OUTPUTDIR/$filepath.ogg >/dev/null 2>&1
+    oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg >/dev/null 2>&1
 
     if (( $? )); then
-			echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGQUALITY $OUTPUTDIR/$filepath.ogg"
+			echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg"
       echo "ERROR: encoding failed, continuing"
       echo ""
       rm -f "$OUTPUTDIR/$filepath.ogg"

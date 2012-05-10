@@ -1,0 +1,63 @@
+#!/bin/sh
+# Copyright (C) 2008 - 2012 vortexbox.org
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# Changelog:
+#
+# Wed May 9 2012 divreg <wyatt.brege@gmail.com>
+# * Add $flacdir and $m4aogg arguments to call to flac2ogg.sh
+#
+# Wed Jun 15 2011 Ron Olsen <ronolsen@comcast.net>
+# * Add $flacdir and $m4adir arguments to call to flac2m4a.sh
+
+ACTION=$1
+function echolog {
+echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
+}
+
+case $ACTION in
+  mirror-flac-mp3.again )
+	while [ -f /etc/vortexbox/mirror-flac-mp3.running ]; do 
+		sleep 30
+	done
+	
+	echolog "Mirroring FLAC to mp3 one last time to make sure we got them all." >> /var/log/mirror.log
+	rm /etc/vortexbox/mirror-flac-mp3.again
+	/usr/local/sbin/mirror-flac-mp3  >> /var/log/mirror.log &
+	;;
+	
+  mirror-flac-aac.again )
+	while [ -f /etc/vortexbox/mirror-flac-aac.running ]; do 
+		sleep 30
+	done
+	
+	echolog "Mirroring FLAC to AAC one last time to make sure we got them all." >> /var/log/mirror.log
+	rm /etc/vortexbox/mirror-flac-aac.again
+	;;
+
+  mirror-flac-ogg.again )
+	while [ -f /etc/vortexbox/mirror-flac-ogg.running ]; do 
+		sleep 30
+	done
+	
+	echolog "Mirroring FLAC to Ogg Vorbis one last time to make sure we got them all." >> /var/log/mirror.log
+	rm /etc/vortexbox/mirror-flac-ogg.again
+	
+	flacdir=/storage/music/flac/
+	m4adir=/storage/music/m4a/
+	oggdir=/storage/music/ogg/
+  oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
+	/usr/local/sbin/flac2ogg.sh "$flacdir" "$oggopt" "$oggdir" >> /var/log/mirror.log &
+	;;
+
+esac
+
