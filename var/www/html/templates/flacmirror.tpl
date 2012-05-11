@@ -42,9 +42,9 @@
 
 	<div class="section">
 		<p><b>FLAC to Ogg Vorbis mirroring</b></p>
-		<p>Ogg Quality:  
+		<p>Ogg Vorbis Quality:  
 		{html_options name='OGGQUALITY' options=$oggqualitylist class="button" selected=$CURRENTTOGGQUALITY}&nbsp;
-		{include file='tooltip.tpl' Name='Ogg quality selector' File='flac_mirror_ogg_quality'}</p>
+		{include file='tooltip.tpl' Name='Ogg Vorbis quality selector' File='flac_mirror_ogg_quality'}</p>
 		<p>{html_checkboxes name='AUTOOGG' options=$autoogg_checkbox selected=$autoogg_ischecked }&nbsp;
 		{include file='tooltip.tpl' Name='Enable automatic Ogg mirroring' File='flac_mirror_autoogg'}</p>
 	</div>
@@ -53,19 +53,20 @@
 		<span class="sub-head-block">DVD/BD ripping options</span>
 	</div>
 
-	<!--form action="{$SCRIPT_NAME}?action=submit" method="post"-->
 	<div class="section section-line">
 		<p>{html_checkboxes name='LONGER' options=$longer_checkbox selected=$longer_ischecked } <input type="text" name="length" value="{$length}" size="4"/> seconds.</p>
 	</div>
 
 	<div class="section section-line">
-		<p><b>MKV to MP4 mirroring</b></p>
-		<p>{html_checkboxes name='MP4' options=$mp4_checkbox selected=$mp4_ischecked }</p>
+		<p><b>MKV to MP4 mirroring </b></p>
+		<p>{html_checkboxes name='MP4' options=$mp4_checkbox selected=$mp4_ischecked }&nbsp;
+			 {include file='tooltip.tpl' Name='Enable MKV to MP4 remuxing' File='mkv_mirror_automp4'}</p>
 	</div>
 
 	<div class="section section-line">
 		<p><b>MKV to M2TS mirroring</b></p>
-		<p>{html_checkboxes name='M2TS' options=$m2ts_checkbox selected=$m2ts_ischecked }</p>
+		<p>{html_checkboxes name='M2TS' options=$m2ts_checkbox selected=$m2ts_ischecked }&nbsp;
+			 {include file='tooltip.tpl' Name='Enable MKV to M2TS remuxing' File='mkv_mirror_autom2ts'}</p>
 	</div>
 
 	<div class="section">

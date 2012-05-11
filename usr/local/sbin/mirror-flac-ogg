@@ -15,11 +15,11 @@ function echolog {
 echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
 }
 
-OGGOPT="`cat /etc/vortexbox/oggopt.txt` -o"
+oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
 
 touch /etc/vortexbox/mirror-flac-ogg.running
 
-/usr/local/sbin/flac2ogg.sh "/storage/music/flac $OGGOPT /storage/music/ogg"
+/usr/local/sbin/flac2ogg.sh "/storage/music/flac" "$oggopt" "/storage/music/ogg"
 
 rm /etc/vortexbox/mirror-flac-ogg.running
 

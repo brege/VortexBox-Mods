@@ -154,8 +154,12 @@ case $ACTION in
 	echo "StartOGGMirror"
 	flacdir=/storage/music/flac
 	oggdir=/storage/music/ogg
-  oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
-	
+
+  if [ -f /etc/vortexbox/oggopt.txt ]; then
+	  oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
+	else
+		oggopt="-q8 -o"
+  fi
 	if [ -f /etc/vortexbox/mirror-flac-ogg.running ]; then
 		echo "" >> /var/log/mirror.log
 		echolog "OGG mirroring already in progress." >> /var/log/mirror.log

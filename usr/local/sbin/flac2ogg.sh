@@ -37,7 +37,7 @@ fi
 
 if [ ! -x "$OGGENC" ]; then
   echo "ERROR: oggenc not installed" >&2
-  yum -y install libogg libvorbis vorbisgain --skip-broken
+  yum -y install libogg libvorbis vorbis-tools vorbisgain --skip-broken
 fi
 
 #Were we called correctly?
@@ -136,7 +136,6 @@ for filepath in $(find . -type f -name '*.flac' -print \
 		echo "DiscNumber: $DISCNUMBER"
 		echo "Track#: $TRACKNUMBER"
 		echo "Genre: $GENRE"
-		echo ""
 		echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg"
 		echo ""
 	
