@@ -22,10 +22,12 @@ Todo
 ----
 
 - Fix flac to ogg vorbis mirroring for special characters in file names (e.g. '?,()[] etc).
-- Add option to remux and transcode from MKV to AVI
+- Fix automirror of flac to ogg when a cd is ripped
+- Add option to remux and transcode from mkv to avi at /flacmirror.php
 - Quality selectors for mp4 and eventually avi mirroring
 - Make script to add and remove these changes to get back to the original
 - Add install/delete scripts for webmin, serviio, etc
+
 
 Authors
 -------
