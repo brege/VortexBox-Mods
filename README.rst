@@ -25,9 +25,11 @@ Todo
 
 - [audio] foo2bar scripts
 
-  - Fix flac to ogg vorbis mirroring for special characters in file names (e.g. '?,()[] etc).
+  - fix flac to ogg vorbis mirroring for special characters in file names (e.g. '?,()[] etc).
 
-  - Fix automirror of flac to ogg when a cd is ripped
+  - fix auto-mirror of flac to ogg when a cd is ripped
+ 
+  - add option to re-encode flac's to aac 320 or other bitrates 
 
 - [video] add options for further remuxing and transcoding to different containers and audio/video/subtitle formats under various standards
 
@@ -37,13 +39,13 @@ Todo
 
   - fix mp4 mirroring to follow "new scene stanard"
 
-  - add option to remux and transcode from mkv to ogg (libvorbis for audio, libtheora for video) at /flacmirror.php under "wikipedia standard"
+  - add option to remux and transcode from mkv to ogg (libvorbis for audio, libtheora for video) under "wikipedia standard"
   
   - quality selectors for mp4 etc mirroring
 
 - [scripts] installing scripts
 
-  - make script to add and remove these changes to get back to the original, official software supported by `vortexbox.org`_
+  - make script to add and remove these changes to get back to the original, official software supported by http://vortexbox.org
 
   - add install/delete scripts for webmin, serviio, etc
 
