@@ -1,8 +1,29 @@
 #!/bin/bash
-
-#Compress FLAC files to Ogg format for Ogg compatable PMP's
+##############################################################################
+# Copyright (C) 2012 divreg <wyatt.brege@gmail.com>
 #
-#Author: Wyatt Brege (wyatt.brege@gmail.com)
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# Name: flac2ogg.sh
+#
+# Usage: flac2ogg.sh <flacdir> <oggopt> <oggdir>
+#
+# Author: Wyatt Brege <wyatt.brege@gmail.com>
+# Based on work by James A. Hillyerd and
+# Also based on fixes by Ron Olsen <ronolsen@comcast.net>
+#
+# Date: Fri May 11 2012
+# Version 1.1
+#
+################################################################################
 
 ### Begin Configuration
 # The values below will be overridden by those in ~/.flac2mp3.conf if it
@@ -136,14 +157,13 @@ for filepath in $(find . -type f -name '*.flac' -print \
 		echo "DiscNumber: $DISCNUMBER"
 		echo "Track#: $TRACKNUMBER"
 		echo "Genre: $GENRE"
-		echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg"
+		echo "Command executed: oggenc \"$INPUTDIR/$filepath.flac\" \"$OGGOPT\" \"$OUTPUTDIR/$filepath.ogg\""
 		echo ""
 	
     # Encode Ogg
-    oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg >/dev/null 2>&1
+    oggenc "$INPUTDIR/$filepath.flac" "$OGGOPT" "$OUTPUTDIR/$filepath.ogg" >/dev/null 2>&1
 
     if (( $? )); then
-			echo "Command executed: oggenc $INPUTDIR/$filepath.flac $OGGOPT $OUTPUTDIR/$filepath.ogg"
       echo "ERROR: encoding failed, continuing"
       echo ""
       rm -f "$OUTPUTDIR/$filepath.ogg"
