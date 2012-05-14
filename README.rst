@@ -27,7 +27,7 @@ Todo
 
   - fix flac to ogg vorbis mirroring for special characters in file names (e.g. '?,()[] etc).
 
-  - fix auto-mirror of flac to ogg when a cd is ripped
+  - use "vorbisgain" to apply replay gain to ogg vorbis files
  
   - add option to re-encode flac's to aac 320 or other bitrates 
 
@@ -49,13 +49,21 @@ Todo
 
   - add install/delete scripts for webmin, serviio, etc
 
+Changelog
+---------
+
+2012.05.13
+
+- fixed flac-to-ogg when a fresh CD is ripped
+
+- made changes to flac-to-ogg scripts over all
 
 Authors
 -------
 
 Original code by `Andrew Gillis`_ et al (C) http://vortexbox.org GPLv3
 
-Changes and new scripts made by `divreg`_ GPLv3 or later
+Changes and new scripts made by `divreg`_ (C) GPLv3 or later
 
 .. _Andrew Gillis: mailto:andrew@vortexbox.org
 .. _divreg: mailto:wyatt.brege@gmail.com

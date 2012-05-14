@@ -55,7 +55,7 @@ echolog "Rescaning music folder to add $flacdir to your collection."
 /usr/bin/php /opt/vortexbox/rescan.php
 
 ############################################################
-# Step 3 - Mirror to mp3 and/or ALAC based on user 
+# Step 3 - Mirror to mp3 etc based on user 
 #          selection from the web GUI
 #
 ############################################################
@@ -73,11 +73,11 @@ if [ -f /etc/vortexbox/autoaac ]; then
 	#echo "Mirroring FLAC files in $flacdir to m4a in $m4adir"
 
 	if [ ! -d "$m4adir" ]; then
-      mkdir -p "$m4adir"
+    mkdir -p "$m4adir"
 	fi
 	if [ -f "$flacdir/cover.jpg" ]; then
-      cp -a "$flacdir/cover.jpg" "$m4adir/cover.jpg"
-      cp -a "$flacdir/cover.jpg" "$m4adir/folder.jpg"
+    cp -a "$flacdir/cover.jpg" "$m4adir/cover.jpg"
+    cp -a "$flacdir/cover.jpg" "$m4adir/folder.jpg"
 	fi
 
 	echolog "Mirror of FLAC files in $flacdir to m4a in $m4adir started."
@@ -90,20 +90,20 @@ if [ -f /etc/vortexbox/automp3 ]; then
 	#echo "Mirroring FLAC files in $flacdir to mp3 in $mp3dir"
 
 	if [ ! -d "$mp3dir" ]; then
-      mkdir -p "$mp3dir"
+    mkdir -p "$mp3dir"
 	fi
 	if [ -f "$flacdir/cover.jpg" ]; then
-      cp -a "$flacdir/cover.jpg" "$mp3dir/cover.jpg"
-      cp -a "$flacdir/cover.jpg" "$mp3dir/folder.jpg"
+    cp -a "$flacdir/cover.jpg" "$mp3dir/cover.jpg"
+    cp -a "$flacdir/cover.jpg" "$mp3dir/folder.jpg"
 	fi
 
 	LAMEOPT=`cat /etc/vortexbox/lameopt.txt`
 	lameargs="--noreplaygain -h --nohist --quiet $LAMEOPT"
 
 	if [ ! -f /etc/vortexbox/covermp3 ]; then
-      mirrorargs="--nocoverart"
+		mirrorargs="--nocoverart"
 	else
-	  mirrorargs=
+		mirrorargs=
 	fi
     
 	#echo "Invoke flac2mp3.pl $mirrorargs --lameargs=$lameargs $flacdir $mp3dir"
@@ -117,17 +117,18 @@ if [ -f /etc/vortexbox/autoogg ]; then
 	echo "Mirroring FLAC files in $flacdir to ogg in $oggdir"
 
 	if [ ! -d "$oggdir" ]; then
-      mkdir -p "$oggdir"
+    mkdir -p "$oggdir"
 	fi
 	if [ -f "$flacdir/cover.jpg" ]; then
-      cp -a "$flacdir/cover.jpg" "$oggdir/cover.jpg"
-      cp -a "$flacdir/cover.jpg" "$oggdir/folder.jpg"
+    cp -a "$flacdir/cover.jpg" "$oggdir/cover.jpg"
+    cp -a "$flacdir/cover.jpg" "$oggdir/folder.jpg"
 	fi
 
-	oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
+	qualoggenc="-q6"
+  oggencopt="-o"
 
 	echolog "Mirror of FLAC files in $flacdir to Ogg in $oggdir started."
-	/usr/local/sbin/flac2ogg.sh "$flacdir" "$oggopt" "$oggdir" >> /var/log/mirror.log
+	/usr/local/sbin/flac2ogg.sh "$flacdir" $qualoggenc $oggencopt "$oggdir" >> /var/log/mirror.log
 	echolog "Mirror of FLAC files in $flacdir to Ogg in $oggdir completed."
 fi	
 

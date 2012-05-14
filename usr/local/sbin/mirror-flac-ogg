@@ -13,7 +13,6 @@
 # GNU General Public License for more details.
 #
 # Author: Wyatt Brege <wyatt.brege@gmail.com>
-# Based on work by Andrew Gillis <andrew@vortexbox.org>, "mirror-flac-mp3"
 #
 # Date: Fri May 11 2012
 # Version 1.1
@@ -24,15 +23,26 @@ function echolog {
 echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
 }
 
-oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
+flacdir="/storage/music/flac"
+oggdir="/storage/music/ogg"
+
+if [ -f /etc/vortexbox/oggopt.txt ]; then
+  qualoggenc="`cat /etc/vortexbox/oggopt.txt`"
+  oggencopt="-o"
+  echo "$oggopt"
+  echo "Using $qualoggenc to encode Ogg Vorbis." >> /var/log/mirror.log &
+else
+	qualoggenc="-q6"
+  oggencopt="-o"
+  echo "No default quality selected.  Using -q6 (192 kbit/s)" >> /var/log/mirror.log &
+fi
 
 touch /etc/vortexbox/mirror-flac-ogg.running
 
-/usr/local/sbin/flac2ogg.sh "/storage/music/flac" "$oggopt" "/storage/music/ogg"
+/usr/local/sbin/flac2ogg.sh "$flacdir" $qualoggenc $oggencopt "$oggdir" 
 
 rm /etc/vortexbox/mirror-flac-ogg.running
 
 echo ""
-echo "Done."
 echolog "Mirroring FLACs to Ogg Vorbis done." >> /var/log/mirror.log
 echo ""

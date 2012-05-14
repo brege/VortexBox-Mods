@@ -66,7 +66,6 @@ if [ -f /etc/vortexbox/autoaac ]; then
   fi
 fi	
 
-oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
 if [ -f /etc/vortexbox/autoogg ]; then
   echo "" >> /var/log/mirror.log
   echolog "Starting auto Ogg mirror." >> /var/log/mirror.log
@@ -83,7 +82,7 @@ if [ -f /etc/vortexbox/autoogg ]; then
 	echo "" >> /var/log/mirror.log
 	echolog "Mirroring FLACs to Ogg Vorbis." >> /var/log/mirror.log
 	echo "" >> /var/log/mirror.log
-	/usr/local/sbin/flac2ogg.sh /storage/music/flac $oggopt /storage/music/m4a >> /var/log/mirror.log &
+	/usr/local/sbin/mirror-flac-ogg >> /var/log/mirror.log &
   fi
 fi	
 

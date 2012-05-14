@@ -27,6 +27,10 @@
 #
 ##############################################################################
 
+function echolog {
+	echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
+}
+
 # Mirror specified FLAC directory to ogg
 
 if [ $# -ne 1 ]; then
@@ -43,9 +47,6 @@ echo "/usr/local/sbin/mirror-cd-to-ogg $1"
 
 flacdir="$1"
 oggdir=`echo $flacdir | sed -e "s;/flac/;/ogg/;" -`
-
-#echo "FLAC dir is $flacdir"
-#echo "Ogg dir is $oggdir"
 
 # Get cover art for FLAC dir
 
@@ -73,10 +74,11 @@ then
   cp -a "$oggdir/cover.jpg" "$oggdir/folder.jpg"
 fi
 
-oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
+qualoggenc="`cat /etc/vortexbox/oggopt.txt`"
+oggencopt="-o"
 
-echo "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg Vorbis in $oggdir started."
+echolog "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg Vorbis in $oggdir started."
 
-/usr/local/sbin/flac2ogg.sh "$flacdir" "$oggopt" "$oggdir"
+/usr/local/sbin/flac2ogg.sh "$flacdir" $qualoggenc $oggencopt "$oggdir"
 
-echo "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg Vorbis in $oggdir completed."
+echolog "$(/bin/date): Mirror of FLAC files in $flacdir to Ogg Vorbis in $oggdir completed."

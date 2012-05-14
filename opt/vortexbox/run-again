@@ -14,7 +14,7 @@
 # Changelog:
 #
 # Wed May 9 2012 divreg <wyatt.brege@gmail.com>
-# * Add $flacdir and $m4aogg arguments to call to flac2ogg.sh
+# * Added mirror-flac-ogg action
 #
 # Wed Jun 15 2011 Ron Olsen <ronolsen@comcast.net>
 # * Add $flacdir and $m4adir arguments to call to flac2m4a.sh
@@ -50,13 +50,7 @@ case $ACTION in
 	done
 	
 	echolog "Mirroring FLAC to Ogg Vorbis one last time to make sure we got them all." >> /var/log/mirror.log
-	rm /etc/vortexbox/mirror-flac-ogg.again
-	
-	flacdir=/storage/music/flac/
-	m4adir=/storage/music/m4a/
-	oggdir=/storage/music/ogg/
-  oggopt="`cat /etc/vortexbox/oggopt.txt` -o"
-	/usr/local/sbin/flac2ogg.sh "$flacdir" "$oggopt" "$oggdir" >> /var/log/mirror.log &
+	rm /etc/vortexbox/mirror-flac-ogg.again	
 	;;
 
 esac

@@ -62,12 +62,12 @@ if [ ! -x "$OGGENC" ]; then
 fi
 
 #Were we called correctly?
-if [ -z "$1" -o -z "$3" ]; then
+if [ -z "$1" -o -z "$4" ]; then
   exit 1
 fi
 NOW=`date +'%m/%d/%Y %H:%M:%S'`
 function echolog {
-echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
+	echo "`date +'%m/%d/%Y %H:%M:%S'` - $1"
 }
 
 WORK="$TMPDIR/flac2mp3.$$"
@@ -76,23 +76,22 @@ TAGS="$WORK/track.tags"
 
 # Get absolute directory paths
 INPUTDIR="$1"
-OUTPUTDIR="$3"
+OUTPUTDIR="$4"
 
 # Decide encoding compression level
-OGGOPT="$2"
+QUALOGGENC="$2"
 
-#OGGOPT="-q8"
-#INPUTDIR="/storage/music/flac"
-#OUTPUTDIR="/storage/music/ogg"
+# Ogg Vorbis Optionals
+OGGENCOPT="$3"
 
 echo ""
 echo ""
-echolog "Starting FLAC to Ogg Vorbis (.ogg) mirror..."
+echo "Starting FLAC to Ogg Vorbis (.ogg) mirror..."
 echo ""
-echolog "Input Dir: $INPUTDIR"
-echolog "Output Dir: $OUTPUTDIR"
-echolog "Ogg Quality: $OGGOPT"
-echolog "WORK Dir: $WORK"
+echo "Input Dir: $INPUTDIR"
+echo "Output Dir: $OUTPUTDIR"
+echo "Ogg Quality: $QUALOGGENC"
+echo "WORK Dir: $WORK"
 echo ""
 
 # Setup work directory
@@ -148,7 +147,7 @@ for filepath in $(find . -type f -name '*.flac' -print \
         s/\n/=/' "$TAGS"
     source "$TAGS"
 
-		echolog "########################################"
+		echo "########################################"
 		echo "Encoding $TITLE"
 		echo "Artist: $ARTIST"
 		echo "Album: $ALBUM ($DATE)"
@@ -157,28 +156,28 @@ for filepath in $(find . -type f -name '*.flac' -print \
 		echo "DiscNumber: $DISCNUMBER"
 		echo "Track#: $TRACKNUMBER"
 		echo "Genre: $GENRE"
-		echo "Command executed: oggenc \"$INPUTDIR/$filepath.flac\" \"$OGGOPT\" \"$OUTPUTDIR/$filepath.ogg\""
 		echo ""
 	
-    # Encode Ogg
-    oggenc "$INPUTDIR/$filepath.flac" "$OGGOPT" "$OUTPUTDIR/$filepath.ogg" >/dev/null 2>&1
+#		Encode Ogg
+    oggenc "$INPUTDIR/$filepath.flac" $QUALOGGENC $OGGENCOPT "$OUTPUTDIR/$filepath.ogg" >/dev/null 2>&1
 
-    if (( $? )); then
-      echo "ERROR: encoding failed, continuing"
-      echo ""
-      rm -f "$OUTPUTDIR/$filepath.ogg"
-      continue
-    fi
+		if (( $? )); then
+			echo "ERROR: encoding failed, continuing..."
+			echo "Command executed was: <b>oggenc \"$INPUTDIR/$filepath.flac\" $QUALOGGENC $OGGENCOPT \"$OUTPUTDIR/$filepath.ogg\"</b>"
+			echo ""
+			rm -f "$OUTPUTDIR/$filepath.ogg"
+			continue
+		fi
 
 #   Only copy existing coverart to cover.jpg
     if [ -f "$INPUTDIR/$filedir/cover.jpg" ]; then         
-		 cp -r "$INPUTDIR/$filedir/cover.jpg" "$OUTPUTDIR/$filedir/cover.jpg"
-		 if (( $? )); then
-			 echo "ERROR: Adding cover art failed, continuing"
-			 echo ""
-			 rm -f "$OUTPUTDIR/$filedir/cover.jpg"
-			 continue
-		 fi
+			cp -r "$INPUTDIR/$filedir/cover.jpg" "$OUTPUTDIR/$filedir/cover.jpg"
+			if (( $? )); then
+				echo "ERROR: Adding cover art failed, continuing..."
+				echo ""				
+				rm -f "$OUTPUTDIR/$filedir/cover.jpg"
+				continue
+			fi
     fi
     echo ""
   fi
