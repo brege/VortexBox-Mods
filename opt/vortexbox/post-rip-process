@@ -114,7 +114,6 @@ fi
 
 # Mirror to Ogg Vorbis
 if [ -f /etc/vortexbox/autoogg ]; then
-	echo "Mirroring FLAC files in $flacdir to ogg in $oggdir"
 
 	if [ ! -d "$oggdir" ]; then
     mkdir -p "$oggdir"
@@ -124,7 +123,7 @@ if [ -f /etc/vortexbox/autoogg ]; then
     cp -a "$flacdir/cover.jpg" "$oggdir/folder.jpg"
 	fi
 
-	qualoggenc="-q6"
+	qualoggenc="`cat /etc/vortexbox/oggopt.txt`"
   oggencopt="-o"
 
 	echolog "Mirror of FLAC files in $flacdir to Ogg in $oggdir started."

@@ -1,4 +1,4 @@
-What this is
+About
 ------------
 
 These are some files I've modified and created for a better VortexBox experience.  Most of the changes are Web UI related; i.e. changes to  
@@ -11,21 +11,19 @@ These are some files I've modified and created for a better VortexBox experience
 
 My hope is that with a better HTML, the Web UI will be easier to parse for an Android or iPhone app.  Also, I've added an option to mirror FLAC to Ogg Vorbis to the Web UI, and made the scripts (e.g. flac2ogg.sh and flac-ogg-mirror) to do so. Some things can be improved, so I'm putting this here so others can help fork parts of VortexBox to include new options and a better user experience.
 
-THIS IS NOT OFFICIALLY SUPPORTED SOFTWARE FOR VORTEXBOX
+NOTE: This is not officially supported software for VortexBox.
 
 Howto
 -----
 
 To use these modifications, you'll need to move the files where they belong on your VortexBox.  A directory structure has already been setup; you can probably use "cp -R /path/to/VortexBox-Mods /" to overwrite the old files, and use "yum reinstall vortexbox vb-GUI" if you are unhappy with the changes. No warantees (see COPYING).
 
-Note that updating vb-GUI and vortexbox will overwrite these files.  Updating thses packages has been disabled in this version of the Web UI.
+Note that updating vb-GUI and vortexbox will overwrite these files.  Updating these packages has been disabled in this version of the Web UI.
 
 Todo
 ----
 
 - [audio] foo2bar scripts
-
-  - fix flac to ogg vorbis mirroring for special characters in file names (e.g. '?,()[] etc).
 
   - use "vorbisgain" to apply replay gain to ogg vorbis files
  
@@ -51,6 +49,10 @@ Todo
 
 Changelog
 ---------
+
+2012.05.15
+
+- flac-to-ogg seems to work on special chars (e.g. '?,()[] etc), but oggenc messes up on some downloaded flac's with bad ID3 tags, which throws an 'ERROR: Input file "/storage/music/flac/ALBUM/Some_song.flac" is not a supported format'. VB generated flac's, beets retagged flac's, all work without issue.
 
 2012.05.13
 

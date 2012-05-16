@@ -14,7 +14,7 @@
 #
 # Name: flac2ogg.sh
 #
-# Usage: flac2ogg.sh <flacdir> <oggopt> <oggdir>
+# Usage: flac2ogg.sh <flacdir> <qualoggenc> <oggopt> <oggdir>
 #
 # Author: Wyatt Brege <wyatt.brege@gmail.com>
 # Based on work by James A. Hillyerd and
@@ -41,7 +41,7 @@ FLAC="$(which flac)"
 # Path to metaflac binary (part of flac distribution)
 METAFLAC="$(which metaflac)"
 
-# Path to ogg binary 
+# Path to ogg vorbis binary 
 OGGENC="$(which oggenc)"
 
 # Maximum number of times we allow flac decode to fail per file
@@ -162,8 +162,9 @@ for filepath in $(find . -type f -name '*.flac' -print \
     oggenc "$INPUTDIR/$filepath.flac" $QUALOGGENC $OGGENCOPT "$OUTPUTDIR/$filepath.ogg" >/dev/null 2>&1
 
 		if (( $? )); then
-			echo "ERROR: encoding failed, continuing..."
-			echo "Command executed was: <b>oggenc \"$INPUTDIR/$filepath.flac\" $QUALOGGENC $OGGENCOPT \"$OUTPUTDIR/$filepath.ogg\"</b>"
+			echo "<b>ERROR: encoding failed, continuing...</b>"
+#			echo "$@" >/dev/null 2>&1
+			echo "Command executed was: oggenc \"$INPUTDIR/$filepath.flac\" $QUALOGGENC $OGGENCOPT \"$OUTPUTDIR/$filepath.ogg\""
 			echo ""
 			rm -f "$OUTPUTDIR/$filepath.ogg"
 			continue
