@@ -1,3 +1,8 @@
+DEPRECATION NOTICE
+------------------
+
+This project was a hobby project for a very old version of VortexBox, and has not been maintained in a very long time and will likely break your VB if you try to use the files in this repository on your system.
+
 About
 ------------
 
